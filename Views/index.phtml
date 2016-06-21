@@ -59,21 +59,21 @@
             </div>
         </div>
     </div>
-
+<div class="container">
     <!--End Search Filter Panel-->               
     <?php
 //Login + Register feedback
     echo $registered;
     echo $loginFail;
     ?>
-    <div class="row-centered">
+
         <?php
         if (isset($_COOKIE['username'])) {
             $check = $userDataSet::$check;
             if ($check > 0) {
                 ?><p class="indexTitle"><b><?php echo $likeTitle ?></b></p><?php }
 } ?>
-        <div class="col-xs-12 col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
+        
             <?php
 //If username exists and personalised is checked
             if (isset($_COOKIE['username'])) {
@@ -92,7 +92,7 @@
                             $pcategory = $productData->getpCategory();
                             $plink = $productData->getpLink();
 
-                            echo '<div class="panel panel-default productPanel col-xs-12 col-sm-5 col-md-10 col-lg-12 col-centered" style="background-color: #cdffcc;">' .
+                            echo '<div class="panel panel-default productPanel col-xs-12 col-sm-5 col-md-10 col-lg-12" style="background-color: #cdffcc;">' .
                             '<div class="panel-body">';
                             if (isset($_COOKIE['username']) && $_COOKIE['username'] == 'admin' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'ste' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'charlie') {
                                 echo '<p class="pNameLogged">' . $productData->getPname() . '</p><a href="">' . '<form style="display:inline;" action="edit.php?id=' . $productData->getID() . '" method="post"><button type="submit" id="edit" name="edit" value="edit" class="btn btn-xs btn-warning" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-edit"></i></button></form><form style="display:inline;" action="?id=' . $productData->getID() . '" method="post"><button type="submit" id="remove" name="remove" value="remove" class="btn btn-xs btn-danger" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-remove"></i></button></a></form>';
@@ -130,10 +130,11 @@
                 }
             }
             ?>
-        </div>       
+          
         <!-- Display all products -->
         <p class="indexTitle"><b><?php echo $indexTitle; ?></b></p>
-        <div class="col-xs-12 col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
+    
+        <div class="row row-centered">
             <?php
             foreach ($view->productDataSet as $productData) { // A1FF9C FB6464
                 $likes = $productData->getPlikes();
@@ -142,7 +143,7 @@
                 $plink = $productData->getpLink();
 
 
-                echo '<div class="panel panel-default productPanel col-xs-12  col-sm-5 col-md-10 col-lg-12 col-centered" >' .
+                echo '<div class="panel panel-default productPanel" >' .
                 '<div class="panel-body">';
                 if (isset($_COOKIE['username']) && $_COOKIE['username'] == 'admin' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'ste' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'charlie') {
                     echo '<p class="pNameLogged">' . $productData->getPname() . '</p><a href="">' . '<form style="display:inline;" action="edit.php?id=' . $productData->getID() . '" method="post"><button type="submit" id="edit" name="edit" value="edit" class="btn btn-xs btn-warning" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-edit"></i></button></form><form style="display:inline;" action="?id=' . $productData->getID() . '" method="post"><button type="submit" id="remove" name="remove" value="remove" class="btn btn-xs btn-danger" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-remove"></i></button></a></form>';
@@ -177,9 +178,9 @@
                 </div>';
             }
             ?>
-        </div>
-    </div>
-</div>
+        
+
+        </div></div></div>
 <script src="../js/main.js"></script>
 
 

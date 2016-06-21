@@ -5,14 +5,7 @@
         /*Hide some sort features and the footer */
         visibility: collapse;
     }
-    .productPanel
-    {
-        /*Resize the product panel based on device size */
-        max-width: 390px !important;
-        min-width: 200px !important;
-        margin-left: 0px !important;
-        margin-right: 15px !important;
-    }
+
 }
 /* If resolution is below tablet and desktop then... */
 @media only screen and (max-width : 1000px) {
@@ -66,6 +59,8 @@ p.indexTitle {
     font-style:normal;
     font-weight: 400;   
     margin-left: 20px;
+    display: inline-block;
+   
 }
 /* For admin page */
 #userContainer {
@@ -78,6 +73,7 @@ p.indexTitle {
 .container {     
     padding: 0 !important; 
     margin: 0 auto !important;
+
 }
 
 .child {
@@ -191,14 +187,6 @@ p.indexTitle {
 .row-centered {
     text-align:center;
 }
-.col-centered {
-    display:inline-block;
-    float:none;
-    /* reset the text-align */
-    text-align:left;
-    /* inline-block space fix */
-    margin-right:-4px;
-}
 
 
 #filtersBody {
@@ -208,11 +196,17 @@ p.indexTitle {
 .productPanel {   
     height: 500px;  
     padding: 0px !important;    
-    max-width: 270px;
-    min-width: 0px;
-    margin: 0 auto;
-    margin-bottom: 20px;    
-    margin-right: 15px;
+    max-width: 270px !important;  
+    margin-bottom: 20px;  
+    margin-left: 7px;
+    margin-right: 10px;
+    display:inline-block;
+    float:none;
+ 
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+ 
 }
 
 
