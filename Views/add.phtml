@@ -1,0 +1,120 @@
+<?php
+require('template/header.phtml');
+?>
+<div class="container">
+<!-- Tabs start (Add product tab) -->
+<div role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist" style="margin: 5px;">
+        <li role="presentation" class="active"><a href="#add" aria-controls="add" role="tab" data-toggle="tab">Add a Product</a></li>
+        <li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">View/Edit Users</a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" style="margin: 10px;" id="add">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" data-toggle="validator" form action="upload.php" method="post" enctype="multipart/form-data">
+                        <fieldset>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="pname">Product Name</label>  
+                                <div class="col-md-6">
+                                    <input id="pname" maxlength="28" name="pname" type="text" placeholder="Enter product name" class="form-control input-md" required>
+                                </div>
+                            </div>
+                            <!-- Select Basic -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="pcategory">Product Category</label>
+                                <div class="col-md-6">
+                                    <select id="pcategory" name="pcategory" class="form-control">
+                                        <option value="Gaming">Gaming</option>
+                                        <option value="Entertainment">Entertainment</option>
+                                        <option value="Sports">Sports</option>
+                                        <option value="Gadgets">Gadgets</option>
+                                        <option value="Novelty">Novelty</option>
+                                        <option value="Food & Drink">Food & Drink</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- File Button --> 
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="fileToUpload">Upload Image (270x250)</label>
+                                <div class="col-md-4">
+                                    <input id="fileToUpload" name="fileToUpload" class="input-file" type="file" required>
+                                    <small><i>Ideal size: 270x250px (500kb limit) </i></small>
+                                </div>
+                            </div>
+                            <!-- Textarea -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="psummary">Product Summary</label>
+                                <div class="col-md-4">                     
+                                    <textarea class="form-control" id="psummary" name="psummary" required></textarea>
+                                </div>
+                            </div>
+                            <!-- Prepended text-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="pprice">Product Price</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">£</span>
+                                        <input id="pprice" name="pprice" class="form-control" placeholder="" type="text" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="plink">Amazon Link</label>  
+                                <div class="col-md-6">
+                                    <input id="plink" name="plink" type="text" placeholder="Enter Amazon link" class="form-control input-md" required>
+                                </div>
+                            </div>                          
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="submitProduct"></label>
+                                <div class="col-md-4">
+                                    <button id="submitProduct" type="submit" name="submitProduct" value="submitProduct" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Users Tab -->
+        <div role="tabpanel" class="tab-pane" style="margin: 10px;" id="users">
+            <div class="panel panel-default">
+                <div class="panel-body">                   
+
+                    <?php
+                    foreach ($view->userDataSet as $userData) {
+                        $userDataSet = new userDataSet();
+                        echo '<div id="userContainer">';
+                        echo '<div class="likeName">' . $userData->getUsername() . '</div>';
+                        echo '<img src="../../images/' . $userData->getProfilePicture() . '" alt="Profile Picture" class="dp">';
+                        echo '</div>';
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+</div>
+</div>
+<!-- Tabs end -->
+<?php require('template/footer.phtml') ?>
+
+<script type="text/javascript">
+    //If the add tab is clicked
+    $('#add a').click(function(e) {
+        e.preventDefault();
+        //Show tab
+        $(this).tab('show');
+    });
+    //If the users tab is clicked
+    $('#users a').click(function(e) {
+        e.preventDefault();
+        //Show tab
+        $(this).tab('show');
+    });
+</script>

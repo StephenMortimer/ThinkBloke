@@ -1,0 +1,194 @@
+<?php
+require('template/header.phtml');
+?>
+<div class="container">
+<div class="col-xs-12">
+<!-- Changed details feedback -->    
+<?php echo userDataSet::$changed; ?>
+ <!-- Profile panel -->
+<div class="panel panel-default" id="profileContainer">
+    <div class="panel-body">        
+        <p class="profileHead"><?php echo "Welcome to your Profile, <b><i>" . $username . "</b></i>."; ?></p>
+ <!-- Settings -->
+        <div class="panel panel-default" id="profileRight">
+            <div class="panel-heading"><b>Settings</b></div>    
+            <div class="panel body" style="padding: 10px;">
+                <p>Personalised Products:</p>
+                <input type="checkbox" name="personalised" onchange="javascript:return toggle();" data-toggle="toggle" data-onstyle="success" data-offstyle="default" data-width="100" <?php foreach ($view->userDataSet2 as $userData) { echo $userData->getPersonalised(); } ?> ><br/><br/>
+                <button type="button" class="btn btn-default" a href="#changeEmail" data-toggle="modal">Change Email Address</button>
+                <div class="modal fade bs-example-modal-md" id="changeEmail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content" style="padding: 10px;">
+                             <form class="form-horizontal" data-toggle="validator" method="post">
+                             <fieldset>
+                                <!-- Form Name -->
+                                <legend>Change Email</legend>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="existingEmail">Existing Email</label>  
+                                    <div class="col-md-5">
+                                        <input id="existingEmail" name="existingEmail" type="text" placeholder="" class="form-control input-md" required="" required="" type="email"  data-error="Invalid Email Address">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="newEmail">New Email</label>  
+                                    <div class="col-md-5">
+                                        <input id="newEmail" name="newEmail" type="text" placeholder="" class="form-control input-md" required="" type="email"  data-error="Invalid Email Address">
+                                         <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="verifyEmail">Verify Email</label>  
+                                    <div class="col-md-5">
+                                        <input id="verifyEmail" name="verifyEmail" type="text" placeholder="" class="form-control input-md" required="" type="email"  data-error="Invalid Email Address" data-match="#newEmail" data-match-error="Emails don't match">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="submitEmail"></label>
+                                    <div class="col-md-4">
+                                        <button id="submitEmail" name="submitEmail" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div><br/><br/>
+                <button type="button" class="btn btn-default" a href="#changePassword" data-toggle="modal">Change Password</button>
+                <div class="modal fade bs-example-modal-md" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content" style="padding: 10px;">
+                            <form class="form-horizontal" data-toggle="validator" method="post">
+                                <fieldset>
+                                    <!-- Form Name -->
+                                    <legend>Change Password</legend>
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="existing">Existing Password</label>  
+                                        <div class="col-md-5">
+                                            <input id="existing" name="existing" type="password" data-minlength="6" placeholder="" class="form-control input-md" required="">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="new">New Password</label>  
+                                        <div class="col-md-5">
+                                            <input id="new" name="new" type="password" placeholder="" data-minlength="6" class="form-control input-md" required="">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="verify">Verify Password</label>  
+                                        <div class="col-md-5">
+                                            <input id="verify" name="verify"  placeholder="" type="password" data-minlength="6" data-match="#new" data-match-error="Passwords don't match" class="form-control input-md" required="">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Button -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="submitPassword"></label>
+                                        <div class="col-md-4">
+                                            <button id="submitPassword" name="submitPassword" class="btn btn-default">Submit</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div><br/><br/>
+                <button type="button" a href="#changePicture" class="btn btn-default" data-toggle="modal">Change Display Picture</button>
+                <div class="modal fade bs-example-modal-md" tabindex="-1" id="changePicture" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content" style="padding: 10px;">
+                            <form class="form-horizontal" action="upload.php" method="post" enctype="multipart/form-data">
+                                <fieldset>
+                                    <!-- Form Name -->
+                                    <legend>Change Display Picture</legend>
+                                    <!-- File Button --> 
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="fileToUpload">Upload Image</label>
+                                        <div class="col-md-4">
+                                            <input id="fileToUpload" name="fileToUpload" class="input-file" type="file">
+                                        </div>
+                                    </div>
+                                    <!-- Button -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="submitPicture"></label>
+                                        <div class="col-md-4">
+                                            <button id="submitPicture" value="submitPicture" type="submit" name="submitPicture" class="btn btn-default">Submit</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div><br/><br/>
+            </div>
+        </div>
+  <!-- End Settigns -->
+   <!-- Likes -->
+        <p class="leftHeader">Your Likes</p>
+        <div class="panel panel-default" id="wl">
+            <?php            
+            foreach ($view->productDataSet as $productData) {
+                echo '<div id="likeContainer"><div class="likeName">' . $productData->getPname() . '</div>';
+                 echo '<div class="image">' .
+            '<a href="' . $productData->getPlink() . '" target="_blank"><img src="images/' . $productData->getPimage() . '" alt="product image" class="likeImage" ></a>' .
+            '<div class="hoverProfile">';
+                            echo '<form class="form-horizontal" action="?id=' . $productData->getProductID() .'" method="post">
+                             <button id="removeLike" type="submit" name="removeLike" value="removeLike" class="btn btn-danger" ><i class="glyphicon glyphicon-remove"></i></button> 
+                            </form>';                     
+            echo '</div></div></div>';            
+            }
+            ?>
+        </div>
+         <!-- Dislikes -->
+        <p class="leftHeader">Your Dislikes</p>
+        <div class="panel panel-default" id="wl">
+           <?php            
+            foreach ($view->productDataSet2 as $productData) {
+                echo '<div id="likeContainer"><div class="likeName">' . $productData->getPname() . '</div>';
+                 echo '<div class="image">' .
+            '<a href="' . $productData->getPlink() . '" target="_blank"><img src="images/' . $productData->getPimage() . '" alt="product image" class="likeImage" ></a>' .
+            '<div class="hoverProfile">';
+                            echo '<form class="form-horizontal" action="?id=' . $productData->getProductID() .'" method="post">
+                             <button id="removeDislike" type="submit" name="removeDislike" value="removeDislike" class="btn btn-danger" ><i class="glyphicon glyphicon-remove"></i></button> 
+                            </form>';                           
+            echo '</div></div></div>';
+            
+            }
+            ?>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+<script type="text/javascript">
+//Don't refresh toggle button
+function toggle()
+{
+$.ajax({
+    url: "norefresh.php",
+    context: document.body
+    }).done(function() {
+
+    });
+    return false;
+}
+
+</script>
+<?php require('template/footer.phtml') ?>

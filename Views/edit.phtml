@@ -1,0 +1,75 @@
+<!-- Edit product data -->
+<?php
+require('template/header.phtml');
+
+foreach ($view->productDataSet as $productData) {
+    ?>
+    <div class="panel panel-default" style="margin: 10px;">
+
+        <div class="panel-body">
+            <p class="indexTitle"><b>Edit Product</b></p>
+            <form class="form-horizontal" data-toggle="validator" form action="?<?php echo $productData->getID(); ?>" method="post">
+                <fieldset>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="pname">Product Name</label>  
+                        <div class="col-md-6">
+                            <input id="pname" maxlength="28" name="pname" value="<?php echo $productData->getPname(); ?>" type="text" placeholder="Enter product name" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="pcategory">Product Category</label>
+                        <div class="col-md-6">
+                            <select id="pcategory" name="pcategory" class="form-control">
+                                <option value="<?php echo $productData->getPcategory(); ?>"><?php echo $productData->getPcategory(); ?></option>
+                                <option value="Gaming">Gaming</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Gadgets">Gadgets</option>
+                                <option value="Novelty">Novelty</option>
+                                <option value="Food & Drink">Food & Drink</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="psummary">Product Summary</label>
+                        <div class="col-md-4">                     
+                            <textarea class="form-control" id="psummary" name="psummary" required ><?php echo $productData->getPsummary(); ?></textarea>
+                        </div>
+                    </div>
+                    <!-- Prepended text-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="pprice">Product Price</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">£</span>
+                                <input id="pprice" name="pprice" class="form-control" placeholder="" value="<?php echo $productData->getPprice(); ?>" type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="plink">Amazon Link</label>  
+                        <div class="col-md-6">
+                            <input id="plink" name="plink" type="text" placeholder="Enter Amazon link" class="form-control input-md" value="<?php echo $productData->getPlink(); ?>" required>
+                        </div>
+                    </div>  
+                    <input id="id" name="id" type="text" class="form-control input-md" style="display:none;" value="<?php echo $productData->getID(); ?>" required>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="submitProduct"></label>
+                        <div class="col-md-4">
+                            <button id="submitProduct" type="submit" name="submitProduct" value="submitProduct" class="btn btn-default">Submit</button>
+                        </div>
+                    </div>                               
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    </div>
+<?php } ?>
+
+
+<?php require('template/footer.phtml') ?>

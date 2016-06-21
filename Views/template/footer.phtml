@@ -1,0 +1,22 @@
+<div id="footer">
+    <div class="container">
+        <?php
+        echo "<p style='float:right;'>" . $loggedInAs . "</p>";
+        ?>   
+    </div>
+</div>   
+<!-- Open categories dropdown -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".dropdown").hover(
+                function() {
+                    $(this).toggleClass('open');
+                },
+                function() {
+                    $(this).toggleClass('open');
+                }
+        );
+    });
+</script>
+</body>
+</html>

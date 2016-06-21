@@ -1,0 +1,186 @@
+<?php require('template/header.phtml');
+?>
+<div class="container"> 
+    <!--Notifications-->
+    <div id="likenotif" class="alert alert-success" role="alert">Product has been added to your likes.</div>
+    <div id="dislikenotif" class="alert alert-danger" role="alert">Product has been added to your dislikes.</div>
+    <!--End Notifications-->
+
+    <!--Search Filter Panel-->
+    <div class="row-centered">
+        <div class="panel panel-default" id="filters">
+            <div class="panel-body" id="filtersBody">
+                <form method="post" style="display:inline;">   
+                    <div id="search-input">
+                        <div class="input-group col-sm-3 col-md-5 col-lg-6 pull-left">
+                            <input type="text" name="pname" class="form-control input-md" />
+                            <span class="input-group-btn">
+                                <button  style="display:inline;" class="btn btn-default btn-md" type="submit" name="submitN" value="submitN">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>            
+                </form>            
+                <div class="btn-group hideSecond">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Sort by Date <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="?Newest" id="newest">Newest</a></li>
+                        <li><a href="?Oldest" id="oldest">Oldest</a></li>  
+                        <li><a href="?Random" id="random">Random</a></li>  
+                    </ul>
+                </div>
+                <div class="btn-group hideSecond">
+                    <button type="button" class=" btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Sort by Price <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="?Highest" id="highest">Highest to Lowest</a></li>
+                        <li><a href="?Lowest" id="lowest">Lowest to Highest</a></li>                            
+                    </ul>
+                </div>
+                <div class="btn-group hideSecond">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Sort by Likes <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="?MostLikes" id="mostLikes">Most Liked</a></li>
+                        <li><a href="?MostDislikes" id="mostDislikes">Most Disliked</a></li>                            
+                    </ul>
+                </div>
+                <div class="socialRight hideFirst" >
+                    <button class="btn btn-facebook"><i class="fa fa-facebook"></i></button>
+                    <button class="btn btn-twitter"><i class="fa fa-twitter"></i></button>
+                    <button class="btn btn-google-plus"><i class="fa fa-google-plus"></i></button>
+                    <button class="btn btn-pinterest"><i class="fa fa-pinterest"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End Search Filter Panel-->               
+    <?php
+//Login + Register feedback
+    echo $registered;
+    echo $loginFail;
+    ?>
+    <div class="row-centered">
+        <?php
+        if (isset($_COOKIE['username'])) {
+            $check = $userDataSet::$check;
+            if ($check > 0) {
+                ?><p class="indexTitle"><b><?php echo $likeTitle ?></b></p><?php }
+} ?>
+        <div class="col-xs-12 col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
+            <?php
+//If username exists and personalised is checked
+            if (isset($_COOKIE['username'])) {
+                $check = $userDataSet::$check;
+                if ($check > 0) {
+                    ?>
+
+                    <?php
+                    $index = 0;
+                    $limit = 4;
+//Display 4 products
+                    foreach ($view->likeDataSet as $productData)
+                        if ($index < $limit) { // A1FF9C FB6464
+                            $likes = $productData->getPlikes();
+                            $dislikes = $productData->getPdislikes();
+                            $pcategory = $productData->getpCategory();
+                            $plink = $productData->getpLink();
+
+                            echo '<div class="panel panel-default productPanel col-xs-12 col-sm-5 col-md-10 col-lg-12 col-centered" style="background-color: #cdffcc;">' .
+                            '<div class="panel-body">';
+                            if (isset($_COOKIE['username']) && $_COOKIE['username'] == 'admin' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'ste' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'charlie') {
+                                echo '<p class="pNameLogged">' . $productData->getPname() . '</p><a href="">' . '<form style="display:inline;" action="edit.php?id=' . $productData->getID() . '" method="post"><button type="submit" id="edit" name="edit" value="edit" class="btn btn-xs btn-warning" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-edit"></i></button></form><form style="display:inline;" action="?id=' . $productData->getID() . '" method="post"><button type="submit" id="remove" name="remove" value="remove" class="btn btn-xs btn-danger" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-remove"></i></button></a></form>';
+                            } else {
+                                echo '<p class="pName">' . $productData->getPname() . '</p>';
+                            }
+                            echo '<div class="image">' .
+                            '<img  class="pImage img img-responsive" src="images/' . $productData->getPimage() . '" alt="product image" >' .
+                            '<div class="hoverimg">
+                            ';
+                            if (isset($_COOKIE['username'])) {
+                                echo '
+                            <form class="likeForm" style="display: inline;" action="likenorefresh.php?id=' . $productData->getID() . '&category=' . $productData->getPcategory() . '" method="post">
+                            <button id="like" type="submit" name="like" value="like" class="btn btn-success"><i class="glyphicon glyphicon-thumbs-up"></i></button>                            
+                            </form>
+                            <form class="dislikeForm" style="display: inline;" action="dislikenorefresh.php?id=' . $productData->getID() . '&category=' . $productData->getPcategory() . '" method="post">
+                            <button id="dislike" type="submit" name="dislike" value="dislike" class="btn btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i></button> 
+                            </form>';
+                            } else {
+                                echo '
+                                <button type="button" data-target="#login" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                             <button type="button" data-target="#login" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i></button>';
+                            }
+                            echo '</div>' .
+                            '</div>' .
+                            '<p class="pDesc">' . $productData->getPsummary() . '</p>' .
+                            '<p class="pCategory">from <a href="?' . htmlspecialchars($pcategory) . '">' . htmlspecialchars($pcategory) . '</a></p>' .
+                            '<div class="look"><a href="' . htmlspecialchars($plink) . '" target="_blank" class="btn btn-success active" role="button">View <i class="glyphicon glyphicon-chevron-right"></i></a></div>' .
+                            '<p class="pPrice">£' . $productData->getPprice() . '</p>' .
+                            '<div class="thumbs"><i class="glyphicon glyphicon-thumbs-up"></i><i> ' . $likes . '</i> <i class="glyphicon glyphicon-thumbs-down"></i><i> ' . $dislikes . '</i></div>' .
+                            '</div>
+                </div>';
+                            $index++;
+                        }
+                }
+            }
+            ?>
+        </div>       
+        <!-- Display all products -->
+        <p class="indexTitle"><b><?php echo $indexTitle; ?></b></p>
+        <div class="col-xs-12 col-sm-12 col-sm-offset-1 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
+            <?php
+            foreach ($view->productDataSet as $productData) { // A1FF9C FB6464
+                $likes = $productData->getPlikes();
+                $dislikes = $productData->getPdislikes();
+                $pcategory = $productData->getpCategory();
+                $plink = $productData->getpLink();
+
+
+                echo '<div class="panel panel-default productPanel col-xs-12  col-sm-5 col-md-10 col-lg-12 col-centered" >' .
+                '<div class="panel-body">';
+                if (isset($_COOKIE['username']) && $_COOKIE['username'] == 'admin' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'ste' or isset($_COOKIE['username']) && $_COOKIE['username'] == 'charlie') {
+                    echo '<p class="pNameLogged">' . $productData->getPname() . '</p><a href="">' . '<form style="display:inline;" action="edit.php?id=' . $productData->getID() . '" method="post"><button type="submit" id="edit" name="edit" value="edit" class="btn btn-xs btn-warning" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-edit"></i></button></form><form style="display:inline;" action="?id=' . $productData->getID() . '" method="post"><button type="submit" id="remove" name="remove" value="remove" class="btn btn-xs btn-danger" class="btn btn-default" style="margin-left: 5px; margin-bottom: 0px;"><i class="glyphicon glyphicon-remove"></i></button></a></form>';
+                } else {
+                    echo '<p class="pName">' . $productData->getPname() . '</p>';
+                }
+                echo '<div class="image">' .
+                '<img  class="pImage img img-responsive" src="images/' . $productData->getPimage() . '" alt="product image" >' .
+                '<div class="hoverimg">
+                            ';
+                if (isset($_COOKIE['username'])) {
+                    echo '
+                            <form class="likeForm" style="display: inline;" action="likenorefresh.php?id=' . $productData->getID() . '&category=' . $productData->getPcategory() . '" method="post">
+                            <button id="like" type="submit" name="like" value="like" class="btn btn-success"><i class="glyphicon glyphicon-thumbs-up"></i></button>                            
+                            </form>
+                            <form class="dislikeForm" style="display: inline;" action="dislikenorefresh.php?id=' . $productData->getID() . '&category=' . $productData->getPcategory() . '" method="post">
+                            <button id="dislike" type="submit" name="dislike" value="dislike" class="btn btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i></button> 
+                            </form>';
+                } else {
+                    echo '
+                                <button type="button" data-target="#login" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                             <button type="button" data-target="#login" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i></button>';
+                }
+                echo '</div>' .
+                '</div>' .
+                '<p class="pDesc">' . $productData->getPsummary() . '</p>' .
+                '<p class="pCategory">from <a href="?' . htmlspecialchars($pcategory) . '">' . htmlspecialchars($pcategory) . '</a></p>' .
+                '<div class="look"><a href="' . htmlspecialchars($plink) . '" target="_blank" class="btn btn-success active" role="button">View <i class="glyphicon glyphicon-chevron-right"></i></a></div>' .
+                '<p class="pPrice">£' . $productData->getPprice() . '</p>' .
+                '<div class="thumbs"><i class="glyphicon glyphicon-thumbs-up"></i><i> ' . $likes . '</i> <i class="glyphicon glyphicon-thumbs-down"></i><i> ' . $dislikes . '</i></div>' .
+                '</div>
+                </div>';
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<script src="../js/main.js"></script>
+
+
+<?php require('template/footer.phtml') ?>
