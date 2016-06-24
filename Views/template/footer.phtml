@@ -1,13 +1,17 @@
-<div id="footer">
+<!--<div id="footer">
     <div class="container">
         <?php
-        echo "<p style='float:right;'>" . $loggedInAs . "</p>";
-        ?>   
+//        echo "<p style='float:right;'>" . $loggedInAs . "</p>";
+//        ?>   
     </div>
-</div>   
+</div>   -->
 <!-- Open categories dropdown -->
 <script type="text/javascript">
+    $(function(){
+    $('.carousel').carousel();
+    });
     $(document).ready(function() {
+       
         $(".dropdown").hover(
                 function() {
                     $(this).toggleClass('open');
@@ -16,6 +20,7 @@
                     $(this).toggleClass('open');
                 }
         );
+
     });
 </script>
 </body>

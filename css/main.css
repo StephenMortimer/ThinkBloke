@@ -171,6 +171,20 @@ p.indexTitle {
     background-color: #F2F2F2;
 }
 
+.linkButton {
+    margin-top: 13px!important;
+    margin-left: 5px!important;
+    margin-right: 0px!important;
+    background:none!important;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    color: #fff;
+     /*border is optional*/
+
+     cursor: pointer;
+}
+
 
 
 .socialRight {   
