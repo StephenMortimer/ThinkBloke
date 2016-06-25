@@ -1,10 +1,45 @@
+@media only screen and (max-width : 300px) { 
+.productPanel {
+        min-width: 250px!important;
+        max-width: 250px!important;
+        margin-left: 20px!important;
+        margin-right: 20px!important;
+        
+    }
+}
+
 /* If resolution is below 767 pixels in width then... */
 @media only screen and (max-width : 767px) {
-    .hideFirst, .hideSecond, #footer 
+    .hideFirst, .hideSecond, #footer, .mb
     {
         /*Hide some sort features and the footer */
         visibility: collapse;
+        display: none;
     }
+    
+    #promotionCarousel {
+        margin-bottom: 10px!important;
+    }  
+       
+    .linkButton {
+        display:block;
+    }
+    
+    .rightNav {
+        padding-bottom: 20px;
+        
+    } 
+    
+    
+    .rightNav > li:nth-child(1), li:nth-child(2) {       
+     text-align: center; 
+     font-size: 16px;
+     margin: 0px!important;
+     
+    }
+   
+    
+  
 
 }
 /* If resolution is below tablet and desktop then... */
@@ -180,10 +215,15 @@ p.indexTitle {
     padding:0!important;
     font: inherit;
     color: #fff;
+    display:inline;
      /*border is optional*/
 
      cursor: pointer;
 }
+
+.linkButton:hover { 
+     color: #c2c2c2!important;
+} 
 
 
 
@@ -209,17 +249,16 @@ p.indexTitle {
 
 .productPanel {   
     height: 500px;  
-    padding: 0px !important;    
-    max-width: 270px !important;  
+    padding: 0px !important;  
+    width: 270px;
+    min-width: 100px !important;  
     margin-bottom: 20px;  
     margin-left: 7px;
     margin-right: 10px;
     display:inline-block;
-    float:none;
- 
-    /* reset the text-align */
+    float:none; 
     text-align:left;
-    /* inline-block space fix */
+
  
 }
 
